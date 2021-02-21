@@ -61,7 +61,7 @@ server.get('/weather' , (req,res) =>
 function Weather(WeInfo)
 {
     this.weather = WeInfo.weather.description;
-    this.time = WeInfo.datetime;
+    this.time = new Date(WeInfo.datetime).toDateString();
 
 }
 // // location route
