@@ -1,0 +1,26 @@
+{
+  "name": "api-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaneenKh88/City-Explorer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HaneenKh88/City-Explorer/issues"
+  },
+  "homepage": "https://github.com/HaneenKh88/City-Explorer#readme"
+}
