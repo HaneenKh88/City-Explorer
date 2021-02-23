@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 /* eslint-disable indent */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable eol-last */
@@ -41,21 +42,21 @@ function locationHandler(req, res) {
     });
 }
 function weatherHandler(req, res) {
-  // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
-  
+ 
   let cityName = req.query.search_query;
 
   const key = process.env.WEATHER_KEY;
-  const url = `http://api.weatherbit.io/v2.0/forecast/daily?city=${cityName},NC&key=${key}`;
+  const url = `http://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&key=${key}`;
+  let weathArr;
   superagent
     .get(url)
     .then(weatData => {
-      const weathArr = weatData.body.data.map(value => {
+      weathArr = weatData.body.data.map(value => {
         // const wethObj = new Weather(value);
         // console.log(weathArr);
         return new Weather(value);
         // const wethObj = new Weather(weatData);
-      });
+      })
       res.send(weathArr);
 
      
@@ -63,14 +64,14 @@ function weatherHandler(req, res) {
     .catch(() => {
       errorHandler(`Error`, req, res);
     });
-    console.log(weathArr);
+   
 }
 
 function parkHandler(req, res) {
-  // https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=wNBehwNfBlbKWvhCgiCjwV5ZFDSTLmCwwbxfVgqd
-
+  
   let key = process.env.PARK_KEY;
-  let url = `https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=${key}`;
+  let ParkString = req.query.latitude + ',' + req.query.longitude;
+  let url = `https://developer.nps.gov/api/v1/parks?parkCode=${ParkString}&limit=3&api_key=${key}`;
   superagent
     .get(url)
     .then((parkData) => {
@@ -92,7 +93,7 @@ function errorHandler(errors) {
     });
   }
 
-  
+
 // constructors
 function Location(city, locJson) {
   this.search_query = city;
@@ -110,7 +111,7 @@ function Weather(wethJson) {
 
 function Park(geoData) {
   this.name = geoData.fullName;
-  this.address = `${geoData.addresses[0].line1}${geoData.addresses[0].city}${geoData.addresses[0].stateCode}${geoData.addresses[0].postalCode}`;
+  this.address = `"${geoData.addresses[0].line1}" "${geoData.addresses[0].city}" "${geoData.addresses[0].stateCode}" "${geoData.addresses[0].postalCode}"`;
   this.fee = geoData.entranceFees[0].cost;
   this.description = geoData.description;
   this.url = geoData.url;
